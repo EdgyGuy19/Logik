@@ -110,3 +110,4 @@ Skriv ett Prolog-program som föreslår
 en stabil regering i Filurien!
 Lycka till!
 Thomas
+

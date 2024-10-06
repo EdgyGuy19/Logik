@@ -68,9 +68,34 @@ eller F=[2,3] och L=2
 osv.
 (Notera att t.ex. E=[1,2,4], L=3 ska inte finnas med som svar,
 då 2 och 4 inte finns konsekutivt i listan [1,2,3,4].)
+
+
+partstring([],_,[]).%base case: given list, lenght, result
+
+partstring(Fullist, Length, List) :-
+    length(List, Length),
+    Length > 0,
+    append(List, _, Suffix),
+    append(_, Suffix, Fullist).
+
+
+% uppgift 4 (8p)
+% representation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Du skall definiera ett program som arbetar med grafer.
+Föreslå en representation av grafer så att varje nod har ett
+unikt namn (en konstant) och grannarna finns indikerade.
+Definiera ett predikat som med denna representation och utan
+att fastna i en loop tar fram en väg som en lista av namnen på
+noderna i den ordning de passeras när man utan att passera
+en nod mer än en gång går från nod A till nod B!
+Finns det flera möjliga vägar skall de presenteras
+en efter en, om man begär det.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 /*
 append([],L,L).
 append([H|T],L,[H|R]) :- append(T,L,R).
