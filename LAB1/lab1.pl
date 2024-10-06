@@ -40,6 +40,8 @@ skall generera E=[1,2,3,4]
 Definiera alltså predikatet remove_duplicates/2!
 Förklara varför man kan kalla detta predikat för en funktion!
 
+Kan vara flera anledningar. Den har en output baserad på outputen.Den ger unik svar beroende på inputen.
+
 remove_duplicates([], []). %base case for recursion
 
 remove_duplicates([H|T], Result) :-
