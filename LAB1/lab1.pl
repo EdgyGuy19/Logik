@@ -91,6 +91,28 @@ noderna i den ordning de passeras när man utan att passera
 en nod mer än en gång går från nod A till nod B!
 Finns det flera möjliga vägar skall de presenteras
 en efter en, om man begär det.
+
+tree(a, b).
+tree(a, c).
+tree(b, d).
+tree(b, e).
+tree(c, f).
+tree(c, g).
+%creating our tree
+
+
+neighbors(Tree, Leaf) :-
+    tree(Tree,Leaf);
+    tree(Leaf,Tree).
+%to get the edges in the tree
+search(NodeFrom,NodeTo,Visited,[NodeFrom|Result]) :-
+    NodeFrom \= NodeTo, %check if they are same
+    neighbors(NodeFrom, Next), %get closest edges
+    \+member(Next,Visited),  %make sure that the edge is not in the list
+    search(Next, NodeTo, [NodeFrom|Visited], Result). %continue our search
+
+search(NodeTo,NodeTo,_,[NodeTo]). %base case when nodeto and nodefrom are the same
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
@@ -115,5 +137,4 @@ select(X,[Y|T],[Y|R]) :- select(X,T,R).
 member(X,L) :- select(X,L,_).
 memberchk(X,L) :- select(X,L,_), !.
 */
-
 
