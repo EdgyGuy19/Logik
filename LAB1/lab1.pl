@@ -75,10 +75,10 @@ då 2 och 4 inte finns konsekutivt i listan [1,2,3,4].)
 partstring([],_,[]).%base case: given list, lenght, result
 
 partstring(Fullist, Length, List) :-
-    length(List, Length),
-    Length > 0,
-    append(List, _, Suffix),
-    append(_, Suffix, Fullist).
+    length(List, Length), %get our length
+    Length > 0, %ensure that it is higher than 0
+    append(List, _, Suffix),  %append List to the remaining suffix for partials
+    append(_, Suffix, Fullist). %%append prefix and suffix and ensure the correct order
 
 
 % uppgift 4 (8p)
@@ -98,23 +98,29 @@ tree(a, b).
 tree(a, c).
 tree(b, d).
 tree(b, e).
-tree(c, f).
+tree(c, f).   %our tree/edges/graph
 tree(c, g).
-%creating our tree
+tree(f, h).
+tree(g, h).
 
+% defines relation both ways
+neighbors(X, Y) :- 
+    tree(X, Y) ; tree(Y, X).
 
-neighbors(Tree, Leaf) :-
-    tree(Tree,Leaf);
-    tree(Leaf,Tree).
-%to get the edges in the tree
-search(NodeFrom,NodeTo,Visited,[NodeFrom|Result]) :-
-    NodeFrom \= NodeTo, %check if they are same
-    neighbors(NodeFrom, Next), %get closest edges
-    \+member(Next,Visited),  %make sure that the edge is not in the list
-    search(Next, NodeTo, [NodeFrom|Visited], Result). %continue our search
+% for backtracking
+find_path(NodeFrom, NodeTo, Path) :-
+    search(NodeFrom, NodeTo, [NodeFrom], Path).
 
-search(NodeTo,NodeTo,_,[NodeTo]). %base case when nodeto and nodefrom are the same
+% recursion to find a path
+search(NodeTo, NodeTo, Visited, Path) :-
+    reverse(Visited, Path). % when we arrived at the end change the order
 
+search(NodeFrom, NodeTo, Visited, Path) :-
+    NodeFrom \= NodeTo,                % control that we havent arrived yet
+    neighbors(NodeFrom, NextNode),     % find next neighbor
+    \+ member(NextNode, Visited),      % control that we havent visited it yet
+    search(NextNode, NodeTo, [NextNode|Visited], Path). % continiu our search
+    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
